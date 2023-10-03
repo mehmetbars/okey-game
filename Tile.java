@@ -19,6 +19,9 @@ public class Tile {
      * return true if they are matching, false otherwise
      */
     public boolean matchingTiles(Tile t) {
+        if(this.value == t.value && this.colorNameToInt() == t.colorNameToInt()){
+            return true;
+        }
         return false;
     }
 

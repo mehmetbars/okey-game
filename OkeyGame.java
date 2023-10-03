@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class OkeyGame {
 
     Player[] players;
@@ -33,7 +35,20 @@ public class OkeyGame {
      * this method assumes the tiles are already sorted
      */
     public void distributeTilesToPlayers() {
+        int titleIndex = 0;
 
+        for(int i = 0; i < 4; i++){
+            if(i == 0){
+                for( int j = 0; j < 15; j ++){
+                    players[i].addTile(tiles[titleIndex++]);
+                }
+            }
+            else{
+                for(int j = 0; j < 14; j++){
+                    players[i].addTile(tiles[titleIndex++]);
+                }
+            }
+        }
     }
 
     /*
@@ -42,6 +57,9 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getLastDiscardedTile() {
+        if(lastDiscardedTile == null){
+            return lastDiscardedTile.toString();
+        }
         return null;
     }
 
@@ -51,15 +69,44 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public Tile getTopTile() {
-        return null;
+        if(tiles == null || tiles.length == 0 ){
+            return null;
+        }
+        Tile topTile = this.tiles[tiles.length - 1];
+
+        Tile[] newTiles = new Tile[tiles.length - 1];
+
+        System.arraycopy(tiles, 0, newTiles, 0, tiles.length - 1);
+        tiles = newTiles;
+        return topTile;
     }
 
     /*
      * TODO: should randomly shuffle the tiles array before game starts
      */
     public void shuffleTiles() {
+        Tile[] shufledTiles = new Tile[tiles.length];
+        Random randomIndex = new Random();
 
+        for(int i = 0; i < tiles.length; i++){
+            int index = randomIndex.nextInt(tiles.length - 1);
+            shufledTiles[i] = tiles[index];
+            removeElement(tiles, index);
+        }
     }
+    //adding helper method forshuffleTiles method
+    private static Tile[] removeElement(Tile[] original, int index) {
+        if (original == null || index < 0 || index >= original.length) {
+            return original;
+        }
+    
+        Tile[] result = new Tile[original.length - 1];
+        System.arraycopy(original, 0, result, 0, index);
+        System.arraycopy(original, index + 1, result, index, original.length - index - 1);
+    
+        return result;
+    }
+    
 
     /*
      * TODO: check if game still continues, should return true if current player
