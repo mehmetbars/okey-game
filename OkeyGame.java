@@ -60,7 +60,10 @@ public class OkeyGame {
         if(lastDiscardedTile == null){
             return lastDiscardedTile.toString();
         }
-        return null;
+        else {
+            return "No tile has been discarded yet.";
+        }
+        
     }
 
     /*
@@ -177,7 +180,7 @@ public class OkeyGame {
      * that player's tiles
      */
     public void discardTile(int tileIndex) {
-
+        this.lastDiscardedTile = players[currentPlayerIndex].getAndRemoveTile(tileIndex);
     }
 
     public void currentPlayerSortTilesColorFirst() {
