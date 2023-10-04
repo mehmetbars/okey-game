@@ -110,7 +110,9 @@ public class Player {
      * you can use compareToColorFirst method in Tile class for comparing
      * you are allowed to use Collections.sort method
      */
-    public void sortTilesColorFirst() {
+    public void sortTilesColorFirst(Tile playerTiles[]) {
+        bubbleSortValue(playerTiles);
+        bubbleSortColor(playerTiles);
         
     }
 
@@ -123,8 +125,10 @@ public class Player {
      * you can use compareToValueFirst method in Tile class for comparing
      * you are allowed to use Collections.sort method
      */
-    public void sortTilesValueFirst() {
-
+    public void sortTilesValueFirst(Tile playerTiles[]) {
+        bubbleSortColor(playerTiles);
+        bubbleSortValue(playerTiles);
+        
     }
 
     public int findPositionOfTile(Tile t) {
@@ -155,5 +159,32 @@ public class Player {
 
     public String getName() {
         return playerName;
+    }
+    static void bubbleSortValue(Tile playerTiles[]) {  
+        int n = 15;;  
+        int temp = 0;  
+        for(int i=0; i < n; i++){  
+            for(int j=1; j < (n-i); j++){  
+                if(playerTiles[j-1].getValue() > playerTiles[j].getValue()){  
+                    temp = playerTiles[j-1].getValue();  
+                    playerTiles[j-1].value = playerTiles[j].getValue();  
+                    playerTiles[j].value = temp;  
+                }  
+            }              
+        }  
+    }
+    static void bubbleSortColor(Tile playerTiles[]) {  
+        //B<K<R<Y
+        int n = 15;;  
+        char temp = ' ';  
+        for(int i=0; i < n; i++){  
+            for(int j=1; j < (n-i); j++){  
+                if(playerTiles[j-1].getColor() > playerTiles[j].getColor()){   
+                    temp = playerTiles[j-1].getColor();  
+                    playerTiles[j-1].color = playerTiles[j].getColor();  
+                    playerTiles[j].color = temp;  
+                }  
+            }              
+        }  
     }
 }
