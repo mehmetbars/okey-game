@@ -76,8 +76,17 @@ public class Player {
     /*
      * TODO: removes and returns the tile in given index
      */
-    public Tile getAndRemoveTile(int index) {
-        return null;
+    public Tile getAndRemoveTile(int index) { 
+        Tile[] removedTile = new Tile[1] ;
+        removedTile[0] = playerTiles[index];
+        playerTiles[index] = null;
+        for(int i = index; i< playerTiles.length; i++){
+            playerTiles[i] = playerTiles[i+1];
+        }
+        playerTiles[14] = null;
+        numberOfTiles = numberOfTiles-1;
+
+        return removedTile[0];
     }
 
     /*
@@ -86,7 +95,10 @@ public class Player {
      * have more than 15 tiles at a time
      */
     public void addTile(Tile t) {
-
+        if (numberOfTiles<=15) {
+            playerTiles[14] = t;
+            numberOfTiles++;
+        }
     }
 
     /*
